@@ -85,14 +85,14 @@ export default class BackGround extends Sprite {
       startX: screenWidth / 2 - 40,
       startY: screenHeight / 2 - 100 + 180,
       endX  : screenWidth / 2  + 50,
-      endY  : screenHeight / 2 - 100 + 255
+      endY  : screenHeight / 2 - 100 + 235
     }
 
     this.btnAreaIns = {
       startX: screenWidth / 2 - 40,
       startY: screenHeight / 2 - 100 + 100,
       endX  : screenWidth / 2  + 50,
-      endY  : screenHeight / 2 - 100 + 150
+      endY  : screenHeight / 2 - 100 + 155
     }
   }
 }

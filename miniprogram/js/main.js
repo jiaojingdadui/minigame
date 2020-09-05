@@ -2,6 +2,7 @@ import BackGround from './runtime/background'
 import GameInfo   from './runtime/gameinfo'
 import Music      from './runtime/music'
 import DataBus    from './databus'
+import Button from './elements/buttons'
 
 let ctx   = canvas.getContext('2d')
 let databus = new DataBus()
@@ -63,20 +64,20 @@ export default class Main {
   restart() {
     databus.reset()
 
-    canvas.removeEventListener(
-      'touchstart',
-      this.touchHandler
-    )
+    // canvas.removeEventListener(
+    //   'touchstart',
+    //   this.touchHandler
+    // )
 
     this.bg       = new BackGround(ctx)
     this.gameinfo = new GameInfo()
-    // this.music    = new Music()
+    this.music    = new Music()
 
     this.bindLoop     = this.loop.bind(this)
     this.hasEventBind = false
     
     // 清除上一局的动画
-    window.cancelAnimationFrame(this.aniId);
+    // window.cancelAnimationFrame(this.aniId);
     
     this.aniId = window.requestAnimationFrame(
       this.bindLoop,
@@ -88,17 +89,14 @@ export default class Main {
     this.gameinfo.renderStart(ctx)
   }
 
-  // /**
-  //  * 随着帧数变化的敌机生成逻辑
-  //  * 帧数取模定义成生成的频率
-  //  */
-  // enemyGenerate() {
-  //   if ( databus.frame % 30 === 0 ) {
-  //     let enemy = databus.pool.getItemByClass('enemy', Enemy)
-  //     enemy.init(6)
-  //     databus.enemys.push(enemy)
-  //   }
-  // }
+  /**
+   * 随着帧数变化的Button生成逻辑
+   */
+  buttonGenerate() {
+      let button = databus.pool.getItemByClass('button', Button)
+      button.init(3)
+      databus.buttons.push(button)
+  }
 
   // // 全局碰撞检测
   // collisionDetection() {
@@ -182,13 +180,13 @@ export default class Main {
 
     this.bg.render(ctx)
 
-    // databus.bullets
-    //       .concat(databus.enemys)
-    //       .forEach((item) => {
-    //           item.drawToCanvas(ctx)
-    //         })
+    this.touchHandler = this.touchEventHandler.bind(this)
+    canvas.addEventListener('touchstart', this.touchHandler)
 
-    // this.player.drawToCanvas(ctx)
+    databus.buttons
+            .forEach((item) => {
+              item.drawToCanvas(ctx)
+            })
 
     databus.animations.forEach((ani) => {
       if ( ani.isPlaying ) {
@@ -196,20 +194,20 @@ export default class Main {
       }
     })
 
-    // 游戏结束停止帧循环
-    if ( databus.gameOver ) {
-      this.gameinfo.renderGameOver(
-        ctx, 
-        databus.score,
-        this.personalHighScore
-      )
+    // // 游戏结束停止帧循环
+    // if ( databus.gameOver ) {
+    //   this.gameinfo.renderGameOver(
+    //     ctx, 
+    //     databus.score,
+    //     this.personalHighScore
+    //   )
 
-      if ( !this.hasEventBind ) {
-        this.hasEventBind = true
-        this.touchHandler = this.touchEventHandler.bind(this)
-        canvas.addEventListener('touchstart', this.touchHandler)
-      }
-    }
+    //   if ( !this.hasEventBind ) {
+    //     this.hasEventBind = true
+    //     this.touchHandler = this.touchEventHandler.bind(this)
+    //     canvas.addEventListener('touchstart', this.touchHandler)
+    //   }
+    // }
   }
 
   // 游戏逻辑更新主函数
