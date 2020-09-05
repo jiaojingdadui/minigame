@@ -73,13 +73,18 @@ export default class Instruction {
       screenHeight / 2 + 200
     )
     
+    var list = ["根据故事线选择想要的回答,","你们的目标是xxx！"];
+
     ctx.font    = "16px Arial"
-    ctx.fillText(
-      '根据故事线选择想要的回答,你们的目标是xxx！',
-      //'你们的目标是xxx！',
-      screenWidth / 2 -98,
-      screenHeight / 2 -20,
-      100
-    )
+    for(var i=0;i<list.length;i++){
+      ctx.fillText(list[i],screenWidth / 2 -98,screenHeight / 2 -20+i*15);
+    }
+    
+    this.btnAreaBack = {
+      startX: screenWidth / 2 + 20,
+      startY: screenHeight / 2 - 195,
+      endX  : screenWidth / 2  + 110,
+      endY  : screenHeight / 2 + 205
+    }
   }
 }

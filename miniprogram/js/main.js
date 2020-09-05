@@ -8,6 +8,7 @@ let ctx   = canvas.getContext('2d')
 let databus = new DataBus()
 let index =  new Index(ctx)
 let room = new Room(ctx, databus)
+let instruction = new Instruction(ctx)
 
 wx.cloud.init({
   // env 参数说明：
@@ -59,6 +60,13 @@ export default class Main {
     this.touchEventStart()
   }
 
+  inBox(x,y,area){
+    if ( x >= area.startX
+      && x <= area.endX
+      && y >= area.startY
+      && y <= area.endY  ) return true;
+    else return false;
+  }
   touchEventStart() {
     wx.onTouchStart((result) => {
       // Index init
@@ -66,24 +74,19 @@ export default class Main {
       let y = result.touches[0].clientY
       let areaStart = this.index.background.btnAreaStart
       let areaIns = this.index.background.btnAreaIns // Implement Ins function here
-      if ( x >= areaStart.startX
-          && x <= areaStart.endX
-          && y >= areaStart.startY
-          && y <= areaStart.endY  ){ 
+      let areaBack = this.instruction.btnAreaBack
+      if (this.inBox(x,y,areaStart)){ 
             window.pageIndex = 2
-          } else if ( x >= areaIns.startX
-          && x <= areaIns.endX
-          && y >= areaIns.startY
-          && y <= areaIns.endY  ){
+          } 
+      else if ( this.inBox(x,y,areaIns)){
             window.pageIndex = 3
       }
-
+      else if(this.inBox(x,y,areaBack)){
+        window.pageIndex = 1
+      }
       // Home button
       let areaExit = this.index.background.btnAreaExit
-      if ( x >= areaExit.startX
-          && x <= areaExit.endX
-          && y >= areaExit.startY
-          && y <= areaExit.endY  ){ 
+      if (this.inBox(x,y,areaExit) ){ 
             window.pageIndex = 1
           }
 
