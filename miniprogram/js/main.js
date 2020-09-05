@@ -7,8 +7,7 @@ import Instruction from './pages/instruction'
 let ctx   = canvas.getContext('2d')
 let databus = new DataBus()
 let index =  new Index(ctx)
-let room = new Room(ctx)
-let instruction = new Instruction(ctx)
+let room = new Room(ctx, databus)
 
 wx.cloud.init({
   // env 参数说明：
@@ -57,22 +56,20 @@ export default class Main {
       canvas
     )
 
-    this.touchEvent()
+    this.touchEventStart()
   }
 
-  touchEvent() {
+  touchEventStart() {
     wx.onTouchStart((result) => {
+      // Index init
       let x = result.touches[0].clientX
       let y = result.touches[0].clientY
-
       let areaStart = this.index.background.btnAreaStart
       let areaIns = this.index.background.btnAreaIns // Implement Ins function here
-
       if ( x >= areaStart.startX
           && x <= areaStart.endX
           && y >= areaStart.startY
           && y <= areaStart.endY  ){ 
-            //console.log("Dsdsd")
             window.pageIndex = 2
           } else if ( x >= areaIns.startX
           && x <= areaIns.endX
@@ -80,7 +77,43 @@ export default class Main {
           && y <= areaIns.endY  ){
             window.pageIndex = 3
       }
-      // console.log(result.touches[0].clientX, result.touches[0].clientY)
+
+      // Home button
+      let areaExit = this.index.background.btnAreaExit
+      if ( x >= areaExit.startX
+          && x <= areaExit.endX
+          && y >= areaExit.startY
+          && y <= areaExit.endY  ){ 
+            window.pageIndex = 1
+          }
+
+      
+      // Room page buttons 
+      let areaButton1 = this.room.btnArea1
+      if ( x >= areaButton1.startX
+          && x <= areaButton1.endX
+          && y >= areaButton1.startY
+          && y <= areaButton1.endY  ){ 
+            console.log("try 1")
+          }
+
+      let areaButton2 = this.room.btnArea2
+      if ( x >= areaButton2.startX
+          && x <= areaButton2.endX
+          && y >= areaButton2.startY
+          && y <= areaButton2.endY  ){
+            console.log("try 2")
+          }
+
+      let areaButton3 = this.room.btnArea3
+      if ( x >= areaButton3.startX
+          && x <= areaButton3.endX
+          && y >= areaButton3.startY
+          && y <= areaButton3.endY  ){ 
+            console.log("try 3")
+          }
+     
+      // console.log(result.touches[0].clientX, result.touches[0].clientY, areaExit)
     })
   }
 
@@ -151,42 +184,6 @@ export default class Main {
   // }
 
   // 游戏结束后的触摸事件处理逻辑
-
-  render() {
-    // ctx.clearRect(0, 0, canvas.width, canvas.height)
-    // this.bg.render(ctx)
-
-    // // Add event listener that deals with initialization
-    // this.hasEventBind = true
-    // this.initHandler = this.initEventHandler.bind(this)
-    // canvas.addEventListener('init', this.initHandler)
-
-    // databus.buttons
-    //         .forEach((item) => {
-    //           item.drawToCanvas(ctx)
-    //         })
-
-    // databus.animations.forEach((ani) => {
-    //   if ( ani.isPlaying ) {
-    //     ani.aniRender(ctx)
-    //   }
-    // })
-
-    // // 游戏结束停止帧循环
-    // if ( databus.gameOver ) {
-    //   this.gameinfo.renderGameOver(
-    //     ctx, 
-    //     databus.score,
-    //     this.personalHighScore
-    //   )
-
-    //   if ( !this.hasEventBind ) {
-    //     this.hasEventBind = true
-    //     this.touchHandler = this.touchEventHandler.bind(this)
-    //     canvas.addEventListener('touchstart', this.touchHandler)
-    //   }
-    // }
-  }
 
   // 实现游戏帧循环
   loop() {
