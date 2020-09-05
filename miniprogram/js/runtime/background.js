@@ -82,10 +82,10 @@ export default class BackGround extends Sprite {
      * 方便简易判断按钮点击 
      */
     this.btnAreaStart = {
-      startX: screenWidth / 2 - 70,
-      startY: screenHeight / 2 - 100 + 180,
-      endX  : screenWidth / 2  + 70,
-      endY  : screenHeight / 2 - 100 + 235
+      startX: screenWidth / 2 - 40,
+      startY: screenHeight / 2 +70,
+      endX  : screenWidth / 2  + 115,
+      endY  : screenHeight / 2 +140
     }
 
     this.btnAreaIns = {
