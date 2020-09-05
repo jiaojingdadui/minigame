@@ -1,7 +1,11 @@
 import BackGround from '../runtime/background'
 import Music      from '../runtime/music'
 import Button     from '../elements/buttons'
- 
+
+const screenWidth  = window.innerWidth
+const screenHeight = window.innerHeight
+
+
 export default class Room {
  
   constructor(ctx, databus) {
@@ -14,7 +18,7 @@ export default class Room {
   /**
    * 初始化
    */
-  init(){
+  init() {
  
     // 维护当前requestAnimationFrame的id
     this.background = new BackGround(this.ctx)
@@ -31,9 +35,7 @@ export default class Room {
  
   restart() {}
 
-  update() {
-
-  }
+  update() {}
 
  
   //界面渲染，主要渲染子组件
@@ -43,32 +45,30 @@ export default class Room {
     this.background.renderExit(this.ctx)
 
     // console.log(this.databus.buttons.length)
-    for (let i = 200; i <= 400; i += 100) {
-      this.ctx.drawImage(this.button, 80, i, 150, 75)
+    for (let i = -200; i <= 0; i += 100) {
+      this.ctx.drawImage(this.button, screenWidth / 2 - 120, screenHeight / 2 - i, 230, 75)
     }
 
     this.btnArea1 = {
-      startX: 70,
-      startY: 180,
-      endX  : 250,
-      endY  : 270
+      startX: screenWidth / 2 - 120,
+      startY: screenHeight / 2,
+      endX  : screenWidth / 2 + 110,
+      endY  : screenHeight / 2 + 80
     }
 
     this.btnArea2 = {
-      startX: 70,
-      startY: 280,
-      endX  : 250,
-      endY  : 370
+      startX: screenWidth / 2 - 120,
+      startY: screenHeight / 2 + 100,
+      endX  : screenWidth / 2 + 110,
+      endY  : screenHeight / 2 + 180
     }
 
     this.btnArea3 = {
-      startX: 70,
-      startY: 380,
-      endX  : 250,
-      endY  : 470
+      startX: screenWidth / 2 - 120,
+      startY: screenHeight / 2 + 200,
+      endX  : screenWidth / 2 + 110,
+      endY  : screenHeight / 2 + 280
     }
-    
-
 
     // this.databus.buttons
     //     .forEach((item) => {
