@@ -101,7 +101,7 @@ export default class BackGround extends Sprite {
     ctx.font      = "20px Arial"
 
     ctx.fillText(
-      'Exit',
+      'Home',
       screenWidth / 2 - 150,
       screenHeight / 2 - 100 - 100
     )
