@@ -1,5 +1,3 @@
-import Player     from './player/index'
-import Enemy      from './npc/enemy'
 import BackGround from './runtime/background'
 import GameInfo   from './runtime/gameinfo'
 import Music      from './runtime/music'
@@ -71,7 +69,6 @@ export default class Main {
     )
 
     this.bg       = new BackGround(ctx)
-    this.player   = new Player(ctx)
     this.gameinfo = new GameInfo()
     // this.music    = new Music()
 
@@ -91,73 +88,73 @@ export default class Main {
     this.gameinfo.renderStart(ctx)
   }
 
-  /**
-   * 随着帧数变化的敌机生成逻辑
-   * 帧数取模定义成生成的频率
-   */
-  enemyGenerate() {
-    if ( databus.frame % 30 === 0 ) {
-      let enemy = databus.pool.getItemByClass('enemy', Enemy)
-      enemy.init(6)
-      databus.enemys.push(enemy)
-    }
-  }
+  // /**
+  //  * 随着帧数变化的敌机生成逻辑
+  //  * 帧数取模定义成生成的频率
+  //  */
+  // enemyGenerate() {
+  //   if ( databus.frame % 30 === 0 ) {
+  //     let enemy = databus.pool.getItemByClass('enemy', Enemy)
+  //     enemy.init(6)
+  //     databus.enemys.push(enemy)
+  //   }
+  // }
 
-  // 全局碰撞检测
-  collisionDetection() {
-    let that = this
+  // // 全局碰撞检测
+  // collisionDetection() {
+  //   let that = this
 
-    databus.bullets.forEach((bullet) => {
-      for ( let i = 0, il = databus.enemys.length; i < il;i++ ) {
-        let enemy = databus.enemys[i]
+  //   databus.bullets.forEach((bullet) => {
+  //     for ( let i = 0, il = databus.enemys.length; i < il;i++ ) {
+  //       let enemy = databus.enemys[i]
 
-        if ( !enemy.isPlaying && enemy.isCollideWith(bullet) ) {
-          enemy.playAnimation()
-          // that.music.playExplosion()
+  //       if ( !enemy.isPlaying && enemy.isCollideWith(bullet) ) {
+  //         enemy.playAnimation()
+  //         // that.music.playExplosion()
 
-          bullet.visible = false
-          databus.score  += 1
+  //         bullet.visible = false
+  //         databus.score  += 1
 
-          break
-        }
-      }
-    })
+  //         break
+  //       }
+  //     }
+  //   })
 
-    for ( let i = 0, il = databus.enemys.length; i < il;i++ ) {
-      let enemy = databus.enemys[i]
+  //   for ( let i = 0, il = databus.enemys.length; i < il;i++ ) {
+  //     let enemy = databus.enemys[i]
 
-      if ( this.player.isCollideWith(enemy) ) {
-        databus.gameOver = true
+  //     if ( this.player.isCollideWith(enemy) ) {
+  //       databus.gameOver = true
 
-        // 获取历史高分
-        if (this.personalHighScore) {
-          if (databus.score > this.personalHighScore) {
-            this.personalHighScore = databus.score
-          }
-        }
+  //       // 获取历史高分
+  //       if (this.personalHighScore) {
+  //         if (databus.score > this.personalHighScore) {
+  //           this.personalHighScore = databus.score
+  //         }
+  //       }
 
-        // 上传结果
-        // 调用 uploadScore 云函数
-        wx.cloud.callFunction({
-          name: 'uploadScore',
-          // data 字段的值为传入云函数的第一个参数 event
-          data: {
-            score: databus.score
-          },
-          success: res => {
-            if (this.prefetchHighScoreFailed) {
-              this.prefetchHighScore()
-            }
-          },
-          fail: err => {
-            console.error('upload score failed', err)
-          }
-        })
+  //       // 上传结果
+  //       // 调用 uploadScore 云函数
+  //       wx.cloud.callFunction({
+  //         name: 'uploadScore',
+  //         // data 字段的值为传入云函数的第一个参数 event
+  //         data: {
+  //           score: databus.score
+  //         },
+  //         success: res => {
+  //           if (this.prefetchHighScoreFailed) {
+  //             this.prefetchHighScore()
+  //           }
+  //         },
+  //         fail: err => {
+  //           console.error('upload score failed', err)
+  //         }
+  //       })
 
-        break
-      }
-    }
-  }
+  //       break
+  //     }
+  //   }
+  // }
 
   // 游戏结束后的触摸事件处理逻辑
   touchEventHandler(e) {
