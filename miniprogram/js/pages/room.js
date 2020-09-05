@@ -70,6 +70,21 @@ export default class Room {
       endY  : screenHeight / 2 + 280
     }
 
+
+    this.ctx.fillText(
+      '目前状态',
+      screenWidth / 2 - 65,
+      screenHeight / 2 - 100 
+    )
+
+
+    this.btnState = {
+      startX: screenWidth / 2 - 120,
+      startY: screenHeight / 2 + 200,
+      endX  : screenWidth / 2 + 110,
+      endY  : screenHeight / 2 + 280
+    }
+
     // this.databus.buttons
     //     .forEach((item) => {
     //       item.drawToCanvas(this.ctx)
