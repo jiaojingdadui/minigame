@@ -42,5 +42,6 @@ export default class Room {
   render() {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height)
     this.background.render(this.ctx)
+    this.background.renderExit(this.ctx)
   }
 }

@@ -54,10 +54,10 @@ export default class Main {
       canvas
     )
 
-    this.touchEvent()
+    this.touchEventStart()
   }
 
-  touchEvent() {
+  touchEventStart() {
     wx.onTouchStart((result) => {
       let x = result.touches[0].clientX
       let y = result.touches[0].clientY
@@ -69,7 +69,6 @@ export default class Main {
           && x <= areaStart.endX
           && y >= areaStart.startY
           && y <= areaStart.endY  ){ 
-            console.log("Dsdsd")
             window.pageIndex = 2
           } else if ( x >= areaIns.startX
           && x <= areaIns.endX
@@ -77,8 +76,35 @@ export default class Main {
           && y <= areaIns.endY  ){
             this.getIns();
       }
-      // console.log(result.touches[0].clientX, result.touches[0].clientY)
+
+
+      let areaExit = this.index.background.btnAreaExit
+      if ( x >= areaExit.startX
+          && x <= areaExit.endX
+          && y >= areaExit.startY
+          && y <= areaExit.endY  ){ 
+            window.pageIndex = 1
+          }
+     
+      console.log(result.touches[0].clientX, result.touches[0].clientY, areaExit)
     })
+  }
+
+  touchEventExit() {
+    wx.onTouchStart((result) => {
+      let x = result.touches[-1].clientX
+      let y = result.touches[-1].clientY
+
+      let areaExit = this.room.background.btnAreaExit
+
+      if ( x >= areaExit.startX
+          && x <= areaExit.endX
+          && y >= areaExit.startY
+          && y <= areaExit.endY  ){ 
+            window.pageIndex = 1
+          }
+    })
+    console.log("Fsdfds")
   }
 
 

@@ -95,4 +95,22 @@ export default class BackGround extends Sprite {
       endY  : screenHeight / 2 - 100 + 155
     }
   }
+
+  renderExit(ctx) {
+    ctx.fillStyle = "#ffffff"
+    ctx.font      = "20px Arial"
+
+    ctx.fillText(
+      'Exit',
+      screenWidth / 2 - 150,
+      screenHeight / 2 - 100 - 100
+    )
+
+    this.btnAreaExit = {
+      startX: screenWidth / 2 - 170,
+      startY: screenHeight / 2 - 100 - 130,
+      endX  : screenWidth / 2  - 100,
+      endY  : screenHeight / 2 - 100 - 70
+    }
+  }
 }
