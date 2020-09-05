@@ -18,7 +18,7 @@ export default class Room {
     this.background = new BackGround(this.ctx)
     this.aniId = 0
  
-    this.hasEventBind = false
+    //this.hasEventBind = false
  
     // if (!this.hasEventBind) {
     //   this.hasEventBind = true

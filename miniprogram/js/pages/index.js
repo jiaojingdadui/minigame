@@ -37,28 +37,6 @@ export default class Index {
     // this.hasEventBind = false
   }
  
-  initEventHandler(e) {
-    e.preventDefault()
-    
-    let x = e.touches[0].clientX
-    let y = e.touches[0].clientY
-
-    let areaStart = this.background.btnAreaStart
-    let areaIns = this.background.btnAreaIns // Implement Ins function here
-
-    if ( x >= areaStart.startX
-        && x <= areaStart.endX
-        && y >= areaStart.startY
-        && y <= areaStart.endY  ){ 
-          console.log("Dsdsd")
-          this.begin();
-    } else if ( x >= areaIns.startX
-        && x <= areaIns.endX
-        && y >= areaIns.startY
-        && y <= areaIns.endY  ){
-          this.getIns();
-    }
-  }
 
  
   //界面渲染，主要渲染子组件

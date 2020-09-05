@@ -2,16 +2,14 @@ import DataBus    from './databus'
 import Index      from './pages/index'
 import Button from './elements/buttons'
 import Room from './pages/room'
+import Instruction from './pages/instruction'
 
 let ctx   = canvas.getContext('2d')
 let databus = new DataBus()
-<<<<<<< HEAD
-let isin=false;
-=======
 let index =  new Index(ctx)
 let room = new Room(ctx)
+let instruction = new Instruction(ctx)
 
->>>>>>> 1b82018e5293e194be97d30c55030526ed14b316
 wx.cloud.init({
   // env 参数说明：
   //   env 参数决定接下来小程序发起的云开发调用（wx.cloud.xxx）会默认请求到哪个云环境的资源
@@ -28,6 +26,7 @@ export default class Main {
   constructor() {
     this.index = index
     this.room = room
+    this.instruction = instruction
 
     // 维护当前requestAnimationFrame的id
     this.aniId    = 0
@@ -58,13 +57,7 @@ export default class Main {
       canvas
     )
 
-<<<<<<< HEAD
-    // ctx.clearRect(0, 0, canvas.width, canvas.height)
-    this.bg.render(ctx)
-    this.bg.renderStart(ctx)
-=======
     this.touchEvent()
->>>>>>> 1b82018e5293e194be97d30c55030526ed14b316
   }
 
   touchEvent() {
@@ -79,13 +72,13 @@ export default class Main {
           && x <= areaStart.endX
           && y >= areaStart.startY
           && y <= areaStart.endY  ){ 
-            console.log("Dsdsd")
+            //console.log("Dsdsd")
             window.pageIndex = 2
           } else if ( x >= areaIns.startX
           && x <= areaIns.endX
           && y >= areaIns.startY
           && y <= areaIns.endY  ){
-            this.getIns();
+            window.pageIndex = 3
       }
       // console.log(result.touches[0].clientX, result.touches[0].clientY)
     })
@@ -159,32 +152,6 @@ export default class Main {
 
   // 游戏结束后的触摸事件处理逻辑
 
-<<<<<<< HEAD
-    let areaStart = this.bg.btnAreaStart
-    let areaIns = this.bg.btnAreaIns // Implement Ins function here
-//    console.log("!!!!");
-    if ( x >= areaStart.startX
-        && x <= areaStart.endX
-        && y >= areaStart.startY
-        && y <= areaStart.endY  )
-      this.restart()
-
-      if ( x >= areaIns.startX
-        && x <= areaIns.endX
-        && y >= areaIns.startY
-        && y <= areaIns.endY  ){
-          this.gameinfo.renderInstruction(ctx);
-          isin=true;
-        }
-      
-  }
-
-  /**
-   * canvas重绘函数
-   * 每一帧重新绘制所有的需要展示的元素
-   */
-=======
->>>>>>> 1b82018e5293e194be97d30c55030526ed14b316
   render() {
     // ctx.clearRect(0, 0, canvas.width, canvas.height)
     // this.bg.render(ctx)
@@ -199,22 +166,6 @@ export default class Main {
     //           item.drawToCanvas(ctx)
     //         })
 
-<<<<<<< HEAD
-    // this.player.drawToCanvas(ctx)
-
-    databus.animations.forEach((ani) => {
-      if ( ani.isPlaying ) {
-        ani.aniRender(ctx)
-      }
-    })
-    if ( !this.hasEventBind ) {
-      this.hasEventBind = true
-      this.touchHandler = this.touchEventHandler.bind(this)
-      canvas.addEventListener('touchstart', this.touchHandler)
-    }
-    
-    // 游戏结束停止帧循环
-=======
     // databus.animations.forEach((ani) => {
     //   if ( ani.isPlaying ) {
     //     ani.aniRender(ctx)
@@ -222,7 +173,6 @@ export default class Main {
     // })
 
     // // 游戏结束停止帧循环
->>>>>>> 1b82018e5293e194be97d30c55030526ed14b316
     // if ( databus.gameOver ) {
     //   this.gameinfo.renderGameOver(
     //     ctx, 
@@ -230,44 +180,31 @@ export default class Main {
     //     this.personalHighScore
     //   )
 
-<<<<<<< HEAD
-      
-    // }
-  }
-
-  // 游戏逻辑更新主函数
-  update() {
-    if ( databus.gameOver || isin)
-      return;
-    console.log(isin)
-    this.bg.update()
-  
-
-    if ( databus.frame % 20 === 0 ) {
-      // this.player.shoot()
-      // this.music.playShoot()
-    }
-=======
     //   if ( !this.hasEventBind ) {
     //     this.hasEventBind = true
     //     this.touchHandler = this.touchEventHandler.bind(this)
     //     canvas.addEventListener('touchstart', this.touchHandler)
     //   }
     // }
->>>>>>> 1b82018e5293e194be97d30c55030526ed14b316
   }
 
   // 实现游戏帧循环
   loop() {
-    console.log(window.pageIndex)
+   // console.log(window.pageIndex)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     window.cancelAnimationFrame(this.aniId);
     
     //由于小游戏里面没有页面跳转，只能通过变量去设定渲染的界面
-    if (window.pageIndex == 1){//主页面
-      this.index.render()//主界面渲染
-    } else if (window.pageIndex == 2) { //房间界面
-      this.room.render()//游戏房间渲染
+    switch(window.pageIndex){
+      case 1:
+        this.index.render();
+        break;
+      case 2:
+        this.room.render();
+        break;
+      case 3:
+        this.instruction.render(ctx);
+        break;
     }
 
     this.aniId = window.requestAnimationFrame(
