@@ -5,7 +5,7 @@ import DataBus    from './databus'
 
 let ctx   = canvas.getContext('2d')
 let databus = new DataBus()
-
+let isin=false;
 wx.cloud.init({
   // env 参数说明：
   //   env 参数决定接下来小程序发起的云开发调用（wx.cloud.xxx）会默认请求到哪个云环境的资源
@@ -85,7 +85,7 @@ export default class Main {
 
     // ctx.clearRect(0, 0, canvas.width, canvas.height)
     this.bg.render(ctx)
-    this.gameinfo.renderStart(ctx)
+    this.bg.renderStart(ctx)
   }
 
   // /**
@@ -165,12 +165,21 @@ export default class Main {
 
     let areaStart = this.bg.btnAreaStart
     let areaIns = this.bg.btnAreaIns // Implement Ins function here
-
+//    console.log("!!!!");
     if ( x >= areaStart.startX
         && x <= areaStart.endX
         && y >= areaStart.startY
         && y <= areaStart.endY  )
       this.restart()
+
+      if ( x >= areaIns.startX
+        && x <= areaIns.endX
+        && y >= areaIns.startY
+        && y <= areaIns.endY  ){
+          this.gameinfo.renderInstruction(ctx);
+          isin=true;
+        }
+      
   }
 
   /**
@@ -195,28 +204,29 @@ export default class Main {
         ani.aniRender(ctx)
       }
     })
-
-    // 游戏结束停止帧循环
-    if ( databus.gameOver ) {
-      this.gameinfo.renderGameOver(
-        ctx, 
-        databus.score,
-        this.personalHighScore
-      )
-
-      if ( !this.hasEventBind ) {
-        this.hasEventBind = true
-        this.touchHandler = this.touchEventHandler.bind(this)
-        canvas.addEventListener('touchstart', this.touchHandler)
-      }
+    if ( !this.hasEventBind ) {
+      this.hasEventBind = true
+      this.touchHandler = this.touchEventHandler.bind(this)
+      canvas.addEventListener('touchstart', this.touchHandler)
     }
+    
+    // 游戏结束停止帧循环
+    // if ( databus.gameOver ) {
+    //   this.gameinfo.renderGameOver(
+    //     ctx, 
+    //     databus.score,
+    //     this.personalHighScore
+    //   )
+
+      
+    // }
   }
 
   // 游戏逻辑更新主函数
   update() {
-    if ( databus.gameOver )
+    if ( databus.gameOver || isin)
       return;
-
+    console.log(isin)
     this.bg.update()
   
 
