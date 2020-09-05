@@ -39,7 +39,7 @@ export default class Room {
 
  
   //界面渲染，主要渲染子组件
-  render() {
+  render(state, action) {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height)
     this.background.render(this.ctx)
     this.background.renderExit(this.ctx)

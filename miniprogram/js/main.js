@@ -67,7 +67,7 @@ export default class Main {
     this.touchEventStart()
   }
 
-  inBox(x,y,area){
+  inBox(x,y,area) {
     if ( x >= area.startX
       && x <= area.endX
       && y >= area.startY
@@ -86,6 +86,7 @@ export default class Main {
       if ( this.inBox(x,y,areaStart) ){ 
             if (window.pageIndex == 1) {
               window.pageIndex = 2
+              this.getState(1, 1)
             }
           } else if ( this.inBox(x,y,areaIns) ){
             if (window.pageIndex == 1) {
@@ -108,17 +109,23 @@ export default class Main {
       if (window.pageIndex == 2) {
         let areaButton1 = this.room.btnArea1
         if ( this.inBox(x,y,areaButton1)  ){ 
-              console.log("try 1")
+              // console.log("try 1")
+              this.action = this.getAction(1, 1, 1)
+              console.log(this.action)
             }
   
         let areaButton2 = this.room.btnArea2
         if ( this.inBox(x,y,areaButton2)  ){
               console.log("try 2")
+              this.action = this.getAction(1, 1, 2)
+              console.log(this.action)
             }
   
         let areaButton3 = this.room.btnArea3
         if ( this.inBox(x,y,areaButton3) ){ 
               console.log("try 3")
+              this.action = this.getAction(1, 1, 3)
+              console.log(this.action)
             }  
       }
      
@@ -136,69 +143,62 @@ export default class Main {
       databus.buttons.push(button)
   }
 
-  // // 全局碰撞检测
-  // collisionDetection() {
-  //   let that = this
+  getState(graphID, curStateID) {
+    wx.cloud.callFunction({
+      name: 'getRawState',
+      data: {
+        graphID: graphID,
+        curStateID: curStateID
+      },
+      success: res => {
+       this.state = res
+      },
+      fail: err => {
+        console.error('get state failed', err)
+      }
+    })
+  }
 
-  //   databus.bullets.forEach((bullet) => {
-  //     for ( let i = 0, il = databus.enemys.length; i < il;i++ ) {
-  //       let enemy = databus.enemys[i]
+  getAction(graphID, curStateID, buttonID) {
+    wx.cloud.callFunction({
+      name: 'getRawAction',
+      data: {
+        graphID: graphID,
+        curStateID: curStateID,
+        btnID: buttonID
+      },
+      success: res => {
+       this.action = action
+      },
+      fail: err => {
+        console.error('get action failed', err)
+      }
+    })
+  }
 
-  //       if ( !enemy.isPlaying && enemy.isCollideWith(bullet) ) {
-  //         enemy.playAnimation()
-  //         // that.music.playExplosion()
-
-  //         bullet.visible = false
-  //         databus.score  += 1
-
-  //         break
-  //       }
-  //     }
-  //   })
-
-  //   for ( let i = 0, il = databus.enemys.length; i < il;i++ ) {
-  //     let enemy = databus.enemys[i]
-
-  //     if ( this.player.isCollideWith(enemy) ) {
-  //       databus.gameOver = true
-
-  //       // 获取历史高分
-  //       if (this.personalHighScore) {
-  //         if (databus.score > this.personalHighScore) {
-  //           this.personalHighScore = databus.score
-  //         }
-  //       }
-
-  //       // 上传结果
-  //       // 调用 uploadScore 云函数
-  //       wx.cloud.callFunction({
-  //         name: 'uploadScore',
-  //         // data 字段的值为传入云函数的第一个参数 event
-  //         data: {
-  //           score: databus.score
-  //         },
-  //         success: res => {
-  //           if (this.prefetchHighScoreFailed) {
-  //             this.prefetchHighScore()
-  //           }
-  //         },
-  //         fail: err => {
-  //           console.error('upload score failed', err)
-  //         }
-  //       })
-
-  //       break
-  //     }
-  //   }
-  // }
-
-  // 游戏结束后的触摸事件处理逻辑
+  uploadState(graphID, newStateList) {
+    wx.cloud.callFunction({
+      name: 'uploadState',
+      data: {
+        graphID: graphID,
+        newStateList: newStateList
+      },
+      success: res => {
+       return res
+      },
+      fail: err => {
+        console.error('get action failed', err)
+      }
+    })
+  }
 
   // 实现游戏帧循环
   loop() {
    // console.log(window.pageIndex)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     window.cancelAnimationFrame(this.aniId);
+
+    // console.log(this.state, this.action)
     
     //由于小游戏里面没有页面跳转，只能通过变量去设定渲染的界面
     switch(window.pageIndex){
@@ -206,7 +206,7 @@ export default class Main {
         this.index.render();
         break;
       case 2:
-        this.room.render();
+        this.room.render(this.state, this.action);
         break;
       case 3:
         this.instruction.render(ctx);
