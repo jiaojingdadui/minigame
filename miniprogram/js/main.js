@@ -33,6 +33,13 @@ export default class Main {
 
     this.restart()
     this.login()
+
+    const m = wx.getGameServerManager()
+    m.login().then(() => {
+      console.warn('游戏服务登录成功')
+    }).catch(err => {
+      console.warn('游戏服务登录失败', err)
+    })
   }
 
   login() {
@@ -87,7 +94,7 @@ export default class Main {
           }
 
       // Home button
-      let areaExit = this.index.background.btnAreaExit
+      let areaExit = this.room.background.btnAreaExit
       if ( this.inBox(x,y,areaExit)  ){ 
             if (window.pageIndex == 2 || window.pageIndex == 3) {
               window.pageIndex = 1

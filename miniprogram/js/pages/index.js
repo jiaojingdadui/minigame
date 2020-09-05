@@ -17,6 +17,9 @@ export default class Index {
     // 维护当前requestAnimationFrame的id
     this.background = new BackGround(this.ctx)
     this.aniId = 0
+
+
+
   }
  
  
@@ -29,6 +32,5 @@ export default class Index {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height)
     this.background.render(this.ctx)
     this.background.renderStart(this.ctx)
-    this.background.renderExit(this.ctx)
   }
 }
