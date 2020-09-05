@@ -58,7 +58,7 @@ export default class BackGround extends Sprite {
       screenHeight
     )
 
-    this.renderStart(ctx)
+    // this.renderStart(ctx)
   }
 
   renderStart(ctx) {
