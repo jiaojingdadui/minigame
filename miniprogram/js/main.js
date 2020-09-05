@@ -74,49 +74,62 @@ export default class Main {
       let y = result.touches[0].clientY
       let areaStart = this.index.background.btnAreaStart
       let areaIns = this.index.background.btnAreaIns // Implement Ins function here
-      let areaBack = this.instruction.btnAreaBack
-      if (this.inBox(x,y,areaStart)){ 
-            window.pageIndex = 2
-          } 
-      else if ( this.inBox(x,y,areaIns)){
-            window.pageIndex = 3
-      }
-      else if(this.inBox(x,y,areaBack)){
-        window.pageIndex = 1
-      }
+      if ( x >= areaStart.startX
+          && x <= areaStart.endX
+          && y >= areaStart.startY
+          && y <= areaStart.endY  ){ 
+            if (window.pageIndex == 1) {
+              window.pageIndex = 2
+            }
+          } else if ( x >= areaIns.startX
+          && x <= areaIns.endX
+          && y >= areaIns.startY
+          && y <= areaIns.endY  ){
+            if (window.pageIndex == 1) {
+              window.pageIndex = 3
+            }      
+          }
+
       // Home button
       let areaExit = this.index.background.btnAreaExit
-      if (this.inBox(x,y,areaExit) ){ 
-            window.pageIndex = 1
+      if ( x >= areaExit.startX
+          && x <= areaExit.endX
+          && y >= areaExit.startY
+          && y <= areaExit.endY  ){ 
+            if (window.pageIndex == 2 || window.pageIndex == 3) {
+              window.pageIndex = 1
+            }
           }
 
       
       // Room page buttons 
-      let areaButton1 = this.room.btnArea1
-      if ( x >= areaButton1.startX
-          && x <= areaButton1.endX
-          && y >= areaButton1.startY
-          && y <= areaButton1.endY  ){ 
-            console.log("try 1")
-          }
-
-      let areaButton2 = this.room.btnArea2
-      if ( x >= areaButton2.startX
-          && x <= areaButton2.endX
-          && y >= areaButton2.startY
-          && y <= areaButton2.endY  ){
-            console.log("try 2")
-          }
-
-      let areaButton3 = this.room.btnArea3
-      if ( x >= areaButton3.startX
-          && x <= areaButton3.endX
-          && y >= areaButton3.startY
-          && y <= areaButton3.endY  ){ 
-            console.log("try 3")
-          }
+      if (window.pageIndex == 2) {
+        let areaButton1 = this.room.btnArea1
+        if ( x >= areaButton1.startX
+            && x <= areaButton1.endX
+            && y >= areaButton1.startY
+            && y <= areaButton1.endY  ){ 
+              console.log("try 1")
+            }
+  
+        let areaButton2 = this.room.btnArea2
+        if ( x >= areaButton2.startX
+            && x <= areaButton2.endX
+            && y >= areaButton2.startY
+            && y <= areaButton2.endY  ){
+              console.log("try 2")
+            }
+  
+        let areaButton3 = this.room.btnArea3
+        if ( x >= areaButton3.startX
+            && x <= areaButton3.endX
+            && y >= areaButton3.startY
+            && y <= areaButton3.endY  ){ 
+              console.log("try 3")
+            }  
+      }
      
-      // console.log(result.touches[0].clientX, result.touches[0].clientY, areaExit)
+      console.log(result.touches[0].clientX, result.touches[0].clientY, areaExit)
     })
   }
 

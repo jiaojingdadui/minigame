@@ -62,18 +62,18 @@ export default class BackGround extends Sprite {
   }
 
   renderStart(ctx) {
-    ctx.fillStyle = "#ffffff"
-    ctx.font      = "20px Arial"
+    ctx.fillStyle = "#000"
+    ctx.font      = "30px KaiTi"
 
     ctx.fillText(
-      'Start',
-      screenWidth / 2 - 40,
+      '开始游戏',
+      screenWidth / 2 - 60,
       screenHeight / 2 - 100 + 205
     )
 
     ctx.fillText(
-      'Instructions',
-      screenWidth / 2 - 40,
+      '游戏规则',
+      screenWidth / 2 - 60,
       screenHeight / 2 - 100 + 130
     )
 
@@ -82,26 +82,26 @@ export default class BackGround extends Sprite {
      * 方便简易判断按钮点击 
      */
     this.btnAreaStart = {
-      startX: screenWidth / 2 - 40,
+      startX: screenWidth / 2 - 70,
       startY: screenHeight / 2 - 100 + 180,
-      endX  : screenWidth / 2  + 50,
+      endX  : screenWidth / 2  + 70,
       endY  : screenHeight / 2 - 100 + 235
     }
 
     this.btnAreaIns = {
-      startX: screenWidth / 2 - 40,
+      startX: screenWidth / 2 - 70,
       startY: screenHeight / 2 - 100 + 100,
-      endX  : screenWidth / 2  + 50,
+      endX  : screenWidth / 2  + 70,
       endY  : screenHeight / 2 - 100 + 155
     }
   }
 
   renderExit(ctx) {
-    ctx.fillStyle = "#ffffff"
-    ctx.font      = "20px Arial"
+    ctx.fillStyle = "#000"
+    ctx.font      = "30px KaiTi"
 
     ctx.fillText(
-      'Home',
+      '返回',
       screenWidth / 2 - 150,
       screenHeight / 2 - 100 - 100
     )
