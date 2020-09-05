@@ -58,22 +58,22 @@ export default class BackGround extends Sprite {
       screenHeight
     )
 
-    this.renderStart(ctx)
+    // this.renderStart(ctx)
   }
 
   renderStart(ctx) {
-    ctx.fillStyle = "#ffffff"
-    ctx.font      = "20px Arial"
+    ctx.fillStyle = "#000"
+    ctx.font      = "30px KaiTi"
 
     ctx.fillText(
-      'Start',
-      screenWidth / 2 - 40,
+      '开始游戏',
+      screenWidth / 2 - 60,
       screenHeight / 2 - 100 + 205
     )
 
     ctx.fillText(
-      'Instructions',
-      screenWidth / 2 - 40,
+      '游戏规则',
+      screenWidth / 2 - 60,
       screenHeight / 2 - 100 + 130
     )
 
@@ -83,16 +83,34 @@ export default class BackGround extends Sprite {
      */
     this.btnAreaStart = {
       startX: screenWidth / 2 - 40,
-      startY: screenHeight / 2 - 100 + 180,
-      endX  : screenWidth / 2  + 50,
-      endY  : screenHeight / 2 - 100 + 255
+      startY: screenHeight / 2 +70,
+      endX  : screenWidth / 2  + 115,
+      endY  : screenHeight / 2 +140
     }
 
     this.btnAreaIns = {
-      startX: screenWidth / 2 - 40,
+      startX: screenWidth / 2 - 70,
       startY: screenHeight / 2 - 100 + 100,
-      endX  : screenWidth / 2  + 50,
-      endY  : screenHeight / 2 - 100 + 150
+      endX  : screenWidth / 2  + 70,
+      endY  : screenHeight / 2 - 100 + 155
+    }
+  }
+
+  renderExit(ctx) {
+    ctx.fillStyle = "#000"
+    ctx.font      = "30px KaiTi"
+
+    ctx.fillText(
+      '返回',
+      screenWidth / 2 - 150,
+      screenHeight / 2 - 100 - 150
+    )
+
+    this.btnAreaExit = {
+      startX: screenWidth / 2 - 170,
+      startY: screenHeight / 2 - 100 - 170,
+      endX  : screenWidth / 2  - 100,
+      endY  : screenHeight / 2 - 100 - 130
     }
   }
 }
