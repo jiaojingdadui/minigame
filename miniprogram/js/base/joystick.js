@@ -1,4 +1,4 @@
-import * as PIXI from '../../libs/pixi.js';
+import * as PIXI from '../libs/pixi.js';
 import config    from '../config.js';
 import Tween     from './tween.js';
 import { createCircle } from '../common/ui.js';

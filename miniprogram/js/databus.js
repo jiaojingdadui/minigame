@@ -38,3 +38,4 @@ export default class DataBus {
     this.pool.recover('button', button)
   }
 }
+

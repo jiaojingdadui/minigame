@@ -25,6 +25,7 @@
       "disablePlugins": [],
       "outputPath": ""
     },
+    "bundle": true,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
@@ -32,7 +33,7 @@
     "packNpmRelationList": []
   },
   "compileType": "game",
-  "libVersion": "2.2.5",
+  "libVersion": "2.10.4",
   "appid": "wx4695214d782ca016",
   "projectname": "minigame",
   "miniprogramRoot": "miniprogram/",

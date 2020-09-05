@@ -31,9 +31,7 @@ export default {
   deviceinfo,
 
   resources: [
-      "images/bg.png",
-      "images/aircraft1.png",
-      "images/aircraft2.png",
+      "../../miniprogram/images/bg2.jpg",
       "images/bullet_blue.png",
       "images/default_user.png",
       "images/avatar_default.png",

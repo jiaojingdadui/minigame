@@ -1,4 +1,4 @@
-import * as PIXI  from '../../libs/pixi.js';
+import * as PIXI  from '../libs/pixi.js';
 
 export function createBtn(options) {
     let { img, text, x, y, onclick, width, height, style } = options;

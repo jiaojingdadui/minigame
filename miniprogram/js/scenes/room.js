@@ -1,4 +1,4 @@
-import * as PIXI  from '../../libs/pixi.js';
+import * as PIXI  from '../libs/pixi.js';
 import config     from '../config.js';
 import { createBtn } from '../common/ui.js';
 import databus    from '../databus.js';

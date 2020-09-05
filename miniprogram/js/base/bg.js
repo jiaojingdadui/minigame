@@ -1,9 +1,9 @@
-import * as PIXI from '../../libs/pixi.js';
+import * as PIXI from '../libs/pixi.js';
 import config    from '../config.js';
 
 export default class BackGround extends PIXI.Sprite {
     constructor() {
-        let texture = PIXI.Texture.from('images/bg.png');
+        let texture = PIXI.Texture.from('../../images/bg2.jpg');
         super(texture);
 
         this.fill();
