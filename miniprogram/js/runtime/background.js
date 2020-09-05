@@ -103,14 +103,14 @@ export default class BackGround extends Sprite {
     ctx.fillText(
       '返回',
       screenWidth / 2 - 150,
-      screenHeight / 2 - 100 - 100
+      screenHeight / 2 - 100 - 150
     )
 
     this.btnAreaExit = {
       startX: screenWidth / 2 - 170,
-      startY: screenHeight / 2 - 100 - 130,
+      startY: screenHeight / 2 - 100 - 170,
       endX  : screenWidth / 2  - 100,
-      endY  : screenHeight / 2 - 100 - 70
+      endY  : screenHeight / 2 - 100 - 130
     }
   }
 }
