@@ -73,18 +73,22 @@ export default class Main {
     this.bg       = new BackGround(ctx)
     this.player   = new Player(ctx)
     this.gameinfo = new GameInfo()
-    this.music    = new Music()
+    // this.music    = new Music()
 
     this.bindLoop     = this.loop.bind(this)
     this.hasEventBind = false
-
+    
     // 清除上一局的动画
     window.cancelAnimationFrame(this.aniId);
-
+    
     this.aniId = window.requestAnimationFrame(
       this.bindLoop,
       canvas
     )
+
+    // ctx.clearRect(0, 0, canvas.width, canvas.height)
+    this.bg.render(ctx)
+    this.gameinfo.renderStart(ctx)
   }
 
   /**
@@ -109,7 +113,7 @@ export default class Main {
 
         if ( !enemy.isPlaying && enemy.isCollideWith(bullet) ) {
           enemy.playAnimation()
-          that.music.playExplosion()
+          // that.music.playExplosion()
 
           bullet.visible = false
           databus.score  += 1
@@ -162,12 +166,13 @@ export default class Main {
     let x = e.touches[0].clientX
     let y = e.touches[0].clientY
 
-    let area = this.gameinfo.btnArea
+    let areaStart = this.bg.btnAreaStart
+    let areaIns = this.bg.btnAreaIns // Implement Ins function here
 
-    if (   x >= area.startX
-        && x <= area.endX
-        && y >= area.startY
-        && y <= area.endY  )
+    if ( x >= areaStart.startX
+        && x <= areaStart.endX
+        && y >= areaStart.startY
+        && y <= areaStart.endY  )
       this.restart()
   }
 
@@ -180,21 +185,19 @@ export default class Main {
 
     this.bg.render(ctx)
 
-    databus.bullets
-          .concat(databus.enemys)
-          .forEach((item) => {
-              item.drawToCanvas(ctx)
-            })
+    // databus.bullets
+    //       .concat(databus.enemys)
+    //       .forEach((item) => {
+    //           item.drawToCanvas(ctx)
+    //         })
 
-    this.player.drawToCanvas(ctx)
+    // this.player.drawToCanvas(ctx)
 
     databus.animations.forEach((ani) => {
       if ( ani.isPlaying ) {
         ani.aniRender(ctx)
       }
     })
-
-    this.gameinfo.renderGameScore(ctx, databus.score)
 
     // 游戏结束停止帧循环
     if ( databus.gameOver ) {
@@ -218,20 +221,11 @@ export default class Main {
       return;
 
     this.bg.update()
-
-    databus.bullets
-           .concat(databus.enemys)
-           .forEach((item) => {
-              item.update()
-            })
-
-    this.enemyGenerate()
-
-    this.collisionDetection()
+  
 
     if ( databus.frame % 20 === 0 ) {
-      this.player.shoot()
-      this.music.playShoot()
+      // this.player.shoot()
+      // this.music.playShoot()
     }
   }
 

@@ -3,7 +3,7 @@ import Sprite from '../base/sprite'
 const screenWidth  = window.innerWidth
 const screenHeight = window.innerHeight
 
-const BG_IMG_SRC   = 'images/bg.jpg'
+const BG_IMG_SRC   = 'images/bg2.jpg'
 const BG_WIDTH     = 512
 const BG_HEIGHT    = 512
 
@@ -21,10 +21,10 @@ export default class BackGround extends Sprite {
   }
 
   update() {
-    this.top += 2
+    // this.top += 2
 
-    if ( this.top >= screenHeight )
-      this.top = 0
+    // if ( this.top >= screenHeight )
+    //   this.top = 0
   }
 
   /**
@@ -57,5 +57,42 @@ export default class BackGround extends Sprite {
       screenWidth,
       screenHeight
     )
+
+    this.renderStart(ctx)
+  }
+
+  renderStart(ctx) {
+    ctx.fillStyle = "#ffffff"
+    ctx.font      = "20px Arial"
+
+    ctx.fillText(
+      'Start',
+      screenWidth / 2 - 40,
+      screenHeight / 2 - 100 + 205
+    )
+
+    ctx.fillText(
+      'Instructions',
+      screenWidth / 2 - 40,
+      screenHeight / 2 - 100 + 130
+    )
+
+    /**
+     * 重新开始按钮区域
+     * 方便简易判断按钮点击 
+     */
+    this.btnAreaStart = {
+      startX: screenWidth / 2 - 40,
+      startY: screenHeight / 2 - 100 + 180,
+      endX  : screenWidth / 2  + 50,
+      endY  : screenHeight / 2 - 100 + 255
+    }
+
+    this.btnAreaIns = {
+      startX: screenWidth / 2 - 40,
+      startY: screenHeight / 2 - 100 + 100,
+      endX  : screenWidth / 2  + 50,
+      endY  : screenHeight / 2 - 100 + 150
+    }
   }
 }
