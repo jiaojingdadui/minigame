@@ -75,9 +75,11 @@ export default class Instruction {
     
     ctx.font    = "16px Arial"
     ctx.fillText(
-      '根据故事线选择想要的回答，\n 你们的目标是xxx！',
-      screenWidth / 2 -100,
-      screenHeight / 2 +100
+      '根据故事线选择想要的回答,你们的目标是xxx！',
+      //'你们的目标是xxx！',
+      screenWidth / 2 -98,
+      screenHeight / 2 -20,
+      100
     )
   }
 }
